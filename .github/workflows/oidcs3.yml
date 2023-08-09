@@ -1,0 +1,27 @@
+name: Provision S3 Bucket
+
+on:
+ push:
+  branches:
+    - main
+
+permissions:
+      id-token: write
+      contents: read
+
+jobs:
+  AssumeRoleAndCallIdentity:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create S3Bucket
+        uses: actions/checkout@v3
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v1.7.0
+        with:
+          role-to-assume: $IAM_ROLE
+          role-session-name: GitHub_to_AWS_via_OIDC
+          aws-region: us-east-1  
+      - name: Create S3 Bucket
+        run: |
+          aws s3api create-bucket --bucket mys3bucketfromawsoidc1234 --region us-east-1    
+    
