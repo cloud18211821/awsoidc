@@ -18,7 +18,7 @@ jobs:
       - name: configure aws credentials
         uses: aws-actions/configure-aws-credentials@v1.7.0
         with:
-          role-to-assume: arn:aws:iam::288747485630:role/oidconnectgithub-AssumeRoleWithAction
+          role-to-assume: ${{ secrets.IAM_ROLE }}
           role-session-name: GitHub_to_AWS_via_OIDC
           aws-region: us-east-1  
       - name: Create S3 Bucket
